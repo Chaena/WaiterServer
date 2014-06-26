@@ -13,7 +13,6 @@ package resources;
 import data.Item;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -31,7 +30,7 @@ public class ItemResource extends BaseResource<Item> {
     public ItemResource() {
         super(Item.class);
     }
-    
+
     @Path("findByName/{name}")
     public List<Item> findItemByName(@PathParam("name") String name) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -40,6 +39,6 @@ public class ItemResource extends BaseResource<Item> {
         cq.where(cb.equal(root.get("first"), name));
         TypedQuery query = getEntityManager().createQuery(cq);
         List<Item> result = query.getResultList();
-        return result;        
+        return result;
     }
 }

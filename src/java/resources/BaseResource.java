@@ -14,6 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -78,24 +80,18 @@ public abstract class BaseResource<T> {
     @Path("getAll")
     @Produces({"application/json", "application/xml"})
     public List<T> getListOfData() {
-        EntityManager em = getEntityManager();
-        Session session = (Session) em.getDelegate();
-        List<T> list = session.createCriteria(getType()).list();
-
-        // delete duplicates following the tables join
-        HashSet hs = new HashSet();
-        hs.addAll(list);
-        list.clear();
-        list.addAll(hs);
-        return list;
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(type));
+        Query q = em.createQuery(cq);
+        return q.getResultList();
     }
 
-    @POST
-    @Consumes("application/json")
-    public void insertListOfData(List<T> dataList){
-        EntityManager em = getEntityManager();
-        for(T data: dataList){
-            em.merge(data);
-        }
-    }
+//    @POST
+//    @Consumes("application/json")
+//    public void insertListOfData(List<T> dataList){
+//        EntityManager em = getEntityManager();
+//        for(T data: dataList){
+//            em.merge(data);
+//        }
+//    }
 }
