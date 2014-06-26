@@ -4,3 +4,10 @@
 /build
 /lib
 /src/conf/MANIFEST.MF
+/build/web/gfv3ee6.dpf
+/build/web/index.html
+/build/web/META-INF
+/build/web/WEB-INF
+/build/web/*.html
+/build/web/*
+/build/web/*.dpf
