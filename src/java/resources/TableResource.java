@@ -10,7 +10,7 @@
 
 package resources;
 
-import data.Table;
+import data.TableEntity;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
@@ -19,9 +19,9 @@ import javax.ws.rs.Path;
  * @version 26.06.2014
  */
 @Stateless
-@Path("data.table")
-public class TableResource extends BaseResource<Table> {
+@Path("data.TableProperty")
+public class TableResource extends BaseResource<TableEntity> {
     public TableResource() {
-        super(Table.class);
+        super(TableEntity.class);
     }
 }

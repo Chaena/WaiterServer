@@ -10,7 +10,7 @@
 
 package resources;
 
-import data.Order;
+import data.OrderEntity;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
@@ -19,9 +19,10 @@ import javax.ws.rs.Path;
  * @version 26.06.2014
  */
 @Stateless
-@Path("data.order")
-public class OrderResource extends BaseResource<Order> {
+@Path("data.OrderProperty")
+public class OrderResource extends BaseResource<OrderEntity> {
+
     public OrderResource() {
-        super(Order.class);
+        super(OrderEntity.class);
     }
 }

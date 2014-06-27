@@ -10,7 +10,7 @@
 
 package resources;
 
-import data.Waiter;
+import data.WaiterEntity;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
@@ -19,9 +19,10 @@ import javax.ws.rs.Path;
  * @version 26.06.2014
  */
 @Stateless
-@Path("data.waiter")
-public class WaiterResource extends BaseResource<Waiter> {
+@Path("data.WaiterProperty")
+public class WaiterResource extends BaseResource<WaiterEntity> {
+
     public WaiterResource() {
-        super(Waiter.class);
+        super(WaiterEntity.class);
     }
 }

@@ -10,7 +10,6 @@
 
 package resources;
 
-import java.util.HashSet;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +23,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import org.hibernate.Session;
 
 /**
  * @author LL
@@ -51,31 +49,15 @@ public abstract class BaseResource<T> {
     @POST
     @Consumes("application/json")
     public void createData(T data) {
-        getEntityManager().persist(data);
+        em.persist(data);
     }
 
     @PUT
     @Consumes("application/json")
     public void updateData(T data) {
-        getEntityManager().merge(data);
+        em.merge(data);
     }
-
-    @GET
-    @Path("find/{id}")
-    @Produces({"application/json", "application/xml"})
-    public T findDataById(@PathParam("id") String id) {
-        T data = getEntityManager().find(type, id);
-        return data;
-    }
-
-    @DELETE
-    @Consumes({"application/json", "application/xml"})
-    public void deleteDataById(String id) {
-        EntityManager em = getEntityManager();
-        T data = em.getReference(type, id);
-        em.remove(data);
-    }
-
+    
     @GET
     @Path("getAll")
     @Produces({"application/json", "application/xml"})
@@ -85,6 +67,22 @@ public abstract class BaseResource<T> {
         Query q = em.createQuery(cq);
         return q.getResultList();
     }
+
+    @GET
+    @Path("find/{id}")
+    @Produces({"application/json", "application/xml"})
+    public T findDataById(@PathParam("id") String id) {
+        T data = em.find(type, id);
+        return data;
+    }
+
+    @DELETE
+    @Consumes({"application/json", "application/xml"})
+    public void deleteDataById(String id) {
+        T e = em.find(type, id);
+        em.remove(e);
+    }
+
 
 //    @POST
 //    @Consumes("application/json")

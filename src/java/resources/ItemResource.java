@@ -10,7 +10,7 @@
 
 package resources;
 
-import data.Item;
+import data.ItemEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -25,20 +25,21 @@ import javax.ws.rs.PathParam;
  * @version 26.06.2014
  */
 @Stateless
-@Path("data.item")
-public class ItemResource extends BaseResource<Item> {
+@Path("data.ItemProperty")
+public class ItemResource extends BaseResource<ItemEntity> {
+
     public ItemResource() {
-        super(Item.class);
+        super(ItemEntity.class);
     }
 
     @Path("findByName/{name}")
-    public List<Item> findItemByName(@PathParam("name") String name) {
+    public List<ItemEntity> findItemByName(@PathParam("name") String name) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Item> cq = cb.createQuery(getType());
-        Root<Item> root = cq.from(getType());
+        CriteriaQuery<ItemEntity> cq = cb.createQuery(getType());
+        Root<ItemEntity> root = cq.from(getType());
         cq.where(cb.equal(root.get("first"), name));
         TypedQuery query = getEntityManager().createQuery(cq);
-        List<Item> result = query.getResultList();
+        List<ItemEntity> result = query.getResultList();
         return result;
     }
 }
