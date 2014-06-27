@@ -12,6 +12,8 @@ package resources;
 
 import data.OrderEntity;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 /**
@@ -25,4 +27,13 @@ public class OrderResource extends BaseResource<OrderEntity> {
     public OrderResource() {
         super(OrderEntity.class);
     }
+
+//    @POST
+//    @Consumes("application/json")
+//    @Override
+//    public void createData(OrderEntity data) {
+//
+//
+//        getEntityManager().merge(data);
+//    }
 }

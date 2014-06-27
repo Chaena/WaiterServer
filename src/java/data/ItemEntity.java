@@ -10,7 +10,6 @@
 package data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,12 +23,12 @@ public class ItemEntity implements Serializable {
 
     @Id
     private String name;
-    private BigDecimal price;
+    private String price;
 
     public ItemEntity() {
     }
 
-    public ItemEntity(String name, BigDecimal price) {
+    public ItemEntity(String name, String price) {
         this.name = name;
         this.price = price;
     }
@@ -42,11 +41,11 @@ public class ItemEntity implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

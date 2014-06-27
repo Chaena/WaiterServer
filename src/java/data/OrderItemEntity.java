@@ -10,7 +10,6 @@
 package data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,28 +29,19 @@ public class OrderItemEntity implements Serializable {
     private String id;
     private String name;
     private int amount;
-    private BigDecimal price;
+    private String price;
 
     public OrderItemEntity() {
     }
 
-    public OrderItemEntity(String id, String name, int amount, BigDecimal price) {
-        this.id = id;
+    public OrderItemEntity(String name, int amount, String price) {
         this.name = name;
         this.amount = amount;
         this.price = price;
     }
 
-    public OrderItemEntity(String name, int amount, BigDecimal price) {
-        this(null, name, amount, price);
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -70,11 +60,11 @@ public class OrderItemEntity implements Serializable {
         this.amount = amount;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

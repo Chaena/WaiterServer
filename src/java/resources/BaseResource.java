@@ -49,7 +49,7 @@ public abstract class BaseResource<T> {
     @POST
     @Consumes("application/json")
     public void createData(T data) {
-        em.persist(data);
+        em.merge(data);
     }
 
     @PUT
@@ -57,7 +57,7 @@ public abstract class BaseResource<T> {
     public void updateData(T data) {
         em.merge(data);
     }
-    
+
     @GET
     @Path("getAll")
     @Produces({"application/json", "application/xml"})
@@ -71,18 +71,19 @@ public abstract class BaseResource<T> {
     @GET
     @Path("find/{id}")
     @Produces({"application/json", "application/xml"})
-    public T findDataById(@PathParam("id") String id) {
+    public T findDataById(@PathParam("id") int id) {
         T data = em.find(type, id);
         return data;
     }
 
     @DELETE
+    @Path("delete/{id}")
     @Consumes({"application/json", "application/xml"})
-    public void deleteDataById(String id) {
+    public void deleteDataById(@PathParam("id") int id) {
+        System.out.println("DELETE: " + id);
         T e = em.find(type, id);
         em.remove(e);
     }
-
 
 //    @POST
 //    @Consumes("application/json")

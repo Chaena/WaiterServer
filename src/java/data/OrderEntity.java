@@ -11,7 +11,6 @@ package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -36,26 +36,31 @@ public class OrderEntity implements Serializable {
     private String waiter;
     private String date;
     private boolean closed;
+
+    @XmlElement(name="items")
     @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private List<OrderItemEntity> items = new ArrayList<>();
+    private ArrayList<OrderItemEntity> items = new ArrayList<>();
 
     public OrderEntity() {
+        System.out.println("EMPTY_CTOR");
     }
 
-    public OrderEntity(int id, String date, String table, String waiter) {
+    public OrderEntity(int id, String date, String table ,String waiter, ArrayList items) {
+        System.out.println("CTOR");
         this.id = id;
         this.date = date;
         this.tablenr = table;
         this.waiter = waiter;
+        this.items = items;
         closed = false;
     }
 
-    public boolean isClosed() {
+    public boolean getClosed() {
         return closed;
     }
 
-    public void close() {
-        closed = true;
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
 
     public int getId() {
@@ -66,12 +71,14 @@ public class OrderEntity implements Serializable {
         this.id = id;
     }
 
-    public void setItems(List<OrderItemEntity> items) {
+    public void setItems(ArrayList items) {
+        System.out.println("ITEMS");
         this.items = items;
     }
 
     @XmlTransient
-    public List<OrderItemEntity> getItems() {
+    public ArrayList getItems() {
+        System.out.println("ITEMS");
         return items;
     }
 
@@ -80,10 +87,12 @@ public class OrderEntity implements Serializable {
     }
 
     public String getTable() {
+        System.out.println("GET_TABLE");
         return tablenr;
     }
 
     public void setTable(String table) {
+        System.out.println("SET_TABLE");
         this.tablenr = table;
     }
 

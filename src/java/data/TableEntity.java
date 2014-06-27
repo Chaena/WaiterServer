@@ -12,20 +12,20 @@ public class TableEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String number;
+    private String tablenumber;
 
     public TableEntity() {
     }
 
     public TableEntity(String number) {
-        this.number = number;
+        tablenumber = number;
     }
 
     public String getNumber() {
-        return number;
+        return tablenumber;
     }
 
     public void setNumber(String number) {
-        this.number = number;
+        tablenumber = number;
     }
 }
