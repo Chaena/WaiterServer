@@ -16,13 +16,16 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
-
+/**
+ * OrderItem Entity class in Persistence.
+ * @author Long Mathias Yan
+ * @version 1.0
+ */
 @Entity
 @XmlRootElement
 public class OrderItemEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -31,39 +34,45 @@ public class OrderItemEntity implements Serializable {
     private int amount;
     private String price;
 
+    /**
+     * Empty Ctor.
+     */
     public OrderItemEntity() {
     }
 
+    /**
+     * Ctor for Order Item.
+     * @param name      Name.
+     * @param amount    Amount.
+     * @param price     Price.
+     */
     public OrderItemEntity(String name, int amount, String price) {
         this.name = name;
         this.amount = amount;
         this.price = price;
     }
 
+    /*
+     * Getter and Setter.
+     */
     public String getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public int getAmount() {
         return amount;
     }
-
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
     public String getPrice() {
         return price;
     }
-
     public void setPrice(String price) {
         this.price = price;
     }

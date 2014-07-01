@@ -22,7 +22,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
+/**
+ * Order Entity class in Persistence.
+ * @author Long Mathias Yan
+ * @version 1.0
+ */
 @Entity
 @XmlRootElement
 public class OrderEntity implements Serializable {
@@ -31,7 +35,6 @@ public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
-
     private String tablenr;
     private String waiter;
     private String date;
@@ -41,12 +44,21 @@ public class OrderEntity implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private ArrayList<OrderItemEntity> items = new ArrayList<>();
 
+    /**
+     * Empty Ctor.
+     */
     public OrderEntity() {
-        System.out.println("EMPTY_CTOR");
     }
 
+    /**
+     * Ctor for Order Entity.
+     * @param id        id.
+     * @param date      date.
+     * @param table     table.
+     * @param waiter    waiter.
+     * @param items     list of items.
+     */
     public OrderEntity(int id, String date, String table ,String waiter, ArrayList items) {
-        System.out.println("CTOR");
         this.id = id;
         this.date = date;
         this.tablenr = table;
@@ -55,60 +67,56 @@ public class OrderEntity implements Serializable {
         closed = false;
     }
 
+    /*
+     * Getter and Setter.
+    */
     public boolean getClosed() {
         return closed;
     }
-
     public void setClosed(boolean closed) {
         this.closed = closed;
     }
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public void setItems(ArrayList items) {
-        System.out.println("ITEMS");
         this.items = items;
     }
-
     @XmlTransient
     public ArrayList getItems() {
-        System.out.println("ITEMS");
         return items;
     }
-
-    public void addItem(OrderItemEntity item) {
-        items.add(item);
-    }
-
     public String getTable() {
         System.out.println("GET_TABLE");
         return tablenr;
     }
-
     public void setTable(String table) {
         System.out.println("SET_TABLE");
         this.tablenr = table;
     }
-
     public void setDate(String date) {
         this.date = date;
     }
-
     public String getDate() {
         return date;
     }
-
     public void setWaiter(String waiter) {
         this.waiter = waiter;
     }
-
     public String getWaiter() {
         return waiter;
     }
+
+    /**
+     * Adds an Item to order.
+     * @param item      Item to add.
+     */
+    public void addItem(OrderItemEntity item) {
+        items.add(item);
+    }
+
+
 }

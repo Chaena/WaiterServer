@@ -1,12 +1,16 @@
 /*
- *University of Applied Science Munich 2014
- *Faculty:    Computer Science FK07
- *Name:       Mathias Long Yan
- *Date:       26.06.2014
- *Subject:
- *Lecturer:
- *Project:
-*/
+ * (C) Nhu-Huy Le, Jonas Aschenbrenner, Long Mathias Yan
+ * Oracle Corporation Java 1.8.0
+ * Microsoft Windows 7 Professional
+ * 6.1.7601 Service Pack 1 Build 7601
+ * This program is created while attending the courses
+ * at Hochschule Muenchen Fak07, Germany in SS14.
+
+SA: Praktikum
+Excercise 2 - McBar
+
+ - 24/6/2014
+ */
 
 package resources;
 
@@ -25,39 +29,63 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
+ * Base Resource class of Persistence.
  * @author LL
  * @version 26.06.2014
  */
 public abstract class BaseResource<T> {
+
     @PersistenceContext(unitName = "WaiterServerPU")
     private EntityManager em;
-
     private final Class<T> type;
 
+    /**
+     * Sets the class type of the resource.
+     * @param type type of class.
+     */
     public BaseResource(Class<T> type) {
         this.type = type;
     }
 
+    /**
+     * Gets the EM.
+     * @return  enitity manager.
+     */
     public EntityManager getEntityManager() {
         return this.em;
     }
 
+    /**
+     * Gets the type.
+     * @return class type.
+     */
     public Class<T> getType() {
         return type;
     }
 
+    /**
+     * Creates data in persistence.
+     * @param data  data to create.
+     */
     @POST
     @Consumes("application/json")
     public void createData(T data) {
         em.merge(data);
     }
 
+    /**
+     * Updates existent data in persistence.
+     * @param data  data to update.
+     */
     @PUT
     @Consumes("application/json")
     public void updateData(T data) {
         em.merge(data);
     }
 
+    /**
+     * Gets all data in persistence.
+     */
     @GET
     @Path("getAll")
     @Produces({"application/json", "application/xml"})
@@ -68,6 +96,10 @@ public abstract class BaseResource<T> {
         return q.getResultList();
     }
 
+    /**
+     * Gets data by id in persistence.
+     * @param id  data id to find..
+     */
     @GET
     @Path("find/{id}")
     @Produces({"application/json", "application/xml"})
@@ -76,6 +108,10 @@ public abstract class BaseResource<T> {
         return data;
     }
 
+    /**
+     * Deletes data in persistence.
+     * @param id  data id to delete.
+     */
     @DELETE
     @Path("delete/{id}")
     @Consumes({"application/json", "application/xml"})
@@ -84,13 +120,4 @@ public abstract class BaseResource<T> {
         T e = em.find(type, id);
         em.remove(e);
     }
-
-//    @POST
-//    @Consumes("application/json")
-//    public void insertListOfData(List<T> dataList){
-//        EntityManager em = getEntityManager();
-//        for(T data: dataList){
-//            em.merge(data);
-//        }
-//    }
 }

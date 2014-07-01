@@ -1,12 +1,16 @@
 /*
- *University of Applied Science Munich 2014
- *Faculty:    Computer Science FK07
- *Name:       Mathias Long Yan
- *Date:       26.06.2014
- *Subject:
- *Lecturer:
- *Project:
-*/
+ * (C) Nhu-Huy Le, Jonas Aschenbrenner, Long Mathias Yan
+ * Oracle Corporation Java 1.8.0
+ * Microsoft Windows 7 Professional
+ * 6.1.7601 Service Pack 1 Build 7601
+ * This program is created while attending the courses
+ * at Hochschule Muenchen Fak07, Germany in SS14.
+
+SA: Praktikum
+Excercise 2 - McBar
+
+ - 24/6/2014
+ */
 
 package resources;
 
@@ -21,6 +25,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 /**
+ * item resource class.
  * @author LL
  * @version 26.06.2014
  */
@@ -28,10 +33,18 @@ import javax.ws.rs.PathParam;
 @Path("data.ItemProperty")
 public class ItemResource extends BaseResource<ItemEntity> {
 
+    /**
+     * Ctor.
+     */
     public ItemResource() {
         super(ItemEntity.class);
     }
 
+    /**
+     * Finds data by name.
+     * @param name  data name to find.
+     * @return      data.
+     */
     @Path("findByName/{name}")
     public List<ItemEntity> findItemByName(@PathParam("name") String name) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
